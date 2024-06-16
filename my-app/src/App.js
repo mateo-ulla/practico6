@@ -40,14 +40,19 @@ function App() {
     {
       name: "Química",
       teacher: "Elena Sánchez",
-      marks: [7, 8, 7, 6],
+      marks: [7, 2, 3, 6],
       year: 2019,
       id: 6,
     },
   ];
-  const filteredSubjects = subjects.filter(
-    (subject) => subject.marks.length > 3
-  );
+
+  const filteredSubjects = subjects.filter((subject) => {
+    const sumMarks = subject.marks.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue;
+    }, 0);
+    const averageMarks = sumMarks / subject.marks.length;
+    return averageMarks > 6;
+  });
 
   return (
     <div>
