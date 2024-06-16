@@ -5,7 +5,7 @@ function App() {
   const subjects = [
     {
       name: "Matemática",
-      teacher: "Carlos González",
+      teacher: "Luis Fernández",
       marks: [8, 9, 7, 2],
       year: 2022,
       id: 0,
@@ -19,7 +19,7 @@ function App() {
     },
     {
       name: "Programación II",
-      teacher: "Ana Martínez",
+      teacher: "Jorge Pérez",
       marks: [10, 9, 10],
       year: 2023,
       id: 2,
@@ -47,28 +47,28 @@ function App() {
     },
   ];
 
-  const [selectedYear, setSelectedYear] = useState(2022);
+  const [selectedTeacher, setSelectedTeacher] = useState("Jorge Pérez");
 
-  const handleYearChange = (event) => {
-    setSelectedYear(parseInt(event.target.value));
+  const handleTeacherChange = (event) => {
+    setSelectedTeacher(event.target.value);
   };
 
   const filteredSubjects = subjects.filter(
-    (subject) => subject.year === selectedYear
+    (subject) => subject.teacher === selectedTeacher
   );
 
   return (
     <div>
       <header className="App-header">
-        <h3>Materias ciclo lectivo {selectedYear} </h3>
+        <h3>Materias dictadas por {selectedTeacher} </h3>
         <label>
-          Seleccionar año:
-          <select value={selectedYear} onChange={handleYearChange}>
+          Seleccionar profesor:
+          <select value={selectedTeacher} onChange={handleTeacherChange}>
             {subjects
-              .map((subject) => subject.year)
-              .map((year) => (
-                <option key={year} value={year}>
-                  {year}
+              .map((subject) => subject.teacher)
+              .map((teacher) => (
+                <option key={teacher} value={teacher}>
+                  {teacher}
                 </option>
               ))}
           </select>
