@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
+
 function App() {
   const subjects = [
     {
@@ -46,18 +47,32 @@ function App() {
     },
   ];
 
-  const filteredSubjects = subjects.filter((subject) => {
-    const sumMarks = subject.marks.reduce((accumulator, currentValue) => {
-      return accumulator + currentValue;
-    }, 0);
-    const averageMarks = sumMarks / subject.marks.length;
-    return averageMarks > 6;
-  });
+  const [selectedYear, setSelectedYear] = useState(2022);
+
+  const handleYearChange = (event) => {
+    setSelectedYear(parseInt(event.target.value));
+  };
+
+  const filteredSubjects = subjects.filter(
+    (subject) => subject.year === selectedYear
+  );
 
   return (
     <div>
       <header className="App-header">
-        <h3>Materias ciclo lectivo 2023</h3>
+        <h3>Materias ciclo lectivo {selectedYear} </h3>
+        <label>
+          Seleccionar año:
+          <select value={selectedYear} onChange={handleYearChange}>
+            {subjects
+              .map((subject) => subject.year)
+              .map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+          </select>
+        </label>
         <ul>
           {filteredSubjects.map((subject) => (
             <li key={subject.id}>{subject.name}</li>
@@ -67,4 +82,5 @@ function App() {
     </div>
   );
 }
+
 export default App;
